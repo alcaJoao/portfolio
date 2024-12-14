@@ -39,7 +39,10 @@
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
   <!-- End - Fancybox Scripts -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
+  <!-- Add Stripe -->
+  <script src="https://js.stripe.com/v3/"></script>  
+  <!-- Add file JavaScript for payment processing -->
+  <script src="payment.js"></script>
 
   <script>
     tailwind.config = {
@@ -56,248 +59,164 @@
       plugins: [],
     }
   </script>
+  
+  <script>
+    const imageUrls = [
+      "https://res.cloudinary.com/dg9rsflsy/image/upload/v1234567890/imagem1.jpg",
+      "https://res.cloudinary.com/dg9rsflsy/image/upload/v1234567890/imagem2.jpg",
+      "https://res.cloudinary.com/dg9rsflsy/image/upload/v1234567890/imagem3.jpg",
+      // Adicione as URLs das suas imagens...
+    ];
+
+    const gallery = document.getElementById('gallery');
+    imageUrls.forEach(url => {
+      const img = document.createElement('img');
+      img.setAttribute('loading', 'lazy'); // Lazy loading
+      img.src = url;
+      img.alt = 'Imagem Cloudinary';
+      img.style.width = '200px';
+      img.style.margin = '5px';
+      gallery.appendChild(img);
+    });
+  </script>
+  
 </head>
 
-<body
-  class="dark:bg-black bg-white h-screen text-black dark:text-white px-5 md:px-20 opacity-0 animate-fade-in transition duration-500">
-  <!-- Navbar -->
-  <header class="flex w-full overflow-hidden pt-10 pb-1">
-    <!-- Navbar -->
-    <nav id="nav" x-data="{ open: false }" role="navigation" class="w-full">
-      <div class="container mx-auto flex flex-wrap items-center md:flex-no-wrap">
-        <div class="mr-4 md:mr-8">
-          <a href="index.html" class="text-2xl font-signika font-bold">JOÃO GUILHERME</a>
-        </div>
-        <div class="ml-auto md:hidden flex items-center justify-start">
-          <button onclick="menuToggle()" @click="open = !open"
-            class="tap-highlight-transparent text-black dark:text-white w-5 h-5 relative focus:outline-none"
-            @click="open = !open">
-            <span class="sr-only">Open main menu</span>
-            <div class="block w-5 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <span aria-hidden="true"
-                class="block absolute h-0.5 w-5 bg-current transform transition duration-500 ease-in-out"
-                :class="{'rotate-45': open,' -translate-y-1.5': !open }"></span>
-              <span aria-hidden="true"
-                class="block absolute  h-0.5 w-5 bg-current   transform transition duration-500 ease-in-out"
-                :class="{'opacity-0': open } "></span>
-              <span aria-hidden="true"
-                class="block absolute h-0.5 w-5 bg-current transform  transition duration-500 ease-in-out"
-                :class="{'-rotate-45': open, ' translate-y-1.5': !open}"></span>
-            </div>
-          </button>
-        </div>
-        <div id="menu"
-          class="w-full h-0 transition-all ease-out duration-500 md:transition-none md:w-auto md:flex-grow md:flex md:items-center">
-          <ul id="ulMenu"
-            class="flex flex-col duration-300 ease-out md:space-x-5 sm:transition-none mt-5 md:flex-row md:items-center md:ml-auto md:mt-0 md:pt-0 md:border-0">
-            <li class="group transition duration-300">
-              <a href="index.html" class="font-signika text-2xl tap-highlight-transparent">PORTFOLIO
-                <span class="hidden md:block h-0.5 bg-black dark:bg-white"></span>
-              </a>
-            </li>
-            <li class="group transition duration-300">
-              <a href="dist/comprar.html" class="font-signika text-2xl tap-highlight-transparent">COMPRAR
-                <span
-                  class="hidden md:block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black dark:bg-white"></span>
-              </a>
-            </li>
-            <li class="group transition duration-300">
-              <a href="dist/about_me.html" class="font-signika text-2xl tap-highlight-transparent">SOBRE MIM
-                <span
-                  class="hidden md:block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black dark:bg-white"></span>
-              </a>
-            </li>
-            <li class="group transition duration-300">
-              <a href="dist/contact.html" class="font-signika text-2xl tap-highlight-transparent">CONTATO
-                <span
-                  class="hidden md:block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black dark:bg-white"></span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
-  <!-- Content -->
-  <div class="container mx-auto">
-    <h1 class="text-4xl pt-8 pb-2 font-bold">PORTFOLIO</h1>
-    <h2 class="text-4xs pt-0 pb-2 font-signika">EM DESENVOLVIMENTO</h2>
-    <section class="text-neutral-700">
-      <div class="container w-full">
-        <div class="flex flex-wrap w-full">
-          <div class="flex w-full md:w-1/2 flex-wrap">
-            <div class="w-full md:w-1/2 p-1">
-              <div class="overflow-hidden h-full w-full">
-                <a href="./dist/assets/images/horizontal/futebol/IMG_9479.jpg"
-                  data-fancybox="gallery">
-                  <img alt="Garoto fazendo joinha. "
-                    class="block h-full w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
-                    src="./dist/assets/images/horizontal/futebol/IMG_9479.jpg" />
-                </a>
-              </div>
-            </div>
-            <div class="w-full md:w-1/2 p-1">
-              <div class="overflow-hidden h-full w-full">
-                <a href="./dist/assets/images/horizontal/futebol/IMG_0319.jpg"
-                  data-fancybox="gallery">
-                  <img alt="a cat laying on top of a sidewalk next to the ocean"
-                    class="block h-full w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
-                    src="./dist/assets/images/horizontal/futebol/IMG_0319.jpg" />
-                </a>  
-              </div>
-            </div>
-            <div class="w-full p-1">
-              <div class="overflow-hidden h-full w-full">
-                <a href="./dist/assets/images/horizontal/futebol/h11.jpg"
-                    data-fancybox="gallery">
-                    <img alt="a man standing on a beach next to the ocean"
-                    class="block h-full w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
-                    src="./dist/assets/images/horizontal/futebol/h11.jpg" />
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="flex w-full md:w-1/2 flex-wrap">
-            <div class="w-full p-1">              
-              <div class="overflow-hidden h-full w-full">
-                <a href="./dist/assets/images/horizontal/futebol/h6.jpg"
-                  data-fancybox="gallery">
-                  <img alt="a blue sky with a lot of red and orange clouds"
-                    class="block h-full w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
-                    src="./dist/assets/images/horizontal/futebol/h6.jpg" />
-                </a>
-              </div>
-            </div>
-            <div class="w-full md:w-1/2 p-1">
-              <div class="overflow-hidden h-full w-full">
-                <a href="./dist/assets/images/vertical/outros/v3.jpg"
-                  data-fancybox="gallery">
-                  <img alt="a branch of a plant floating in a body of water"
-                    class="block h-full w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
-                    src="./dist/assets/images/vertical/outros/v3.jpg" />
-                </a>
-              </div>
-            </div>
-            <div class="w-full md:w-1/2 p-1">
-              <div class="overflow-hidden h-full w-full">
-                <a href="./dist/assets/images/vertical/outros/v4.jpg"
-                  data-fancybox="gallery">
-                  <img alt="a blue sky with a lot of red and orange clouds"
-                    class="block h-full w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
-                    src="./dist/assets/images/vertical/outros/v4.jpg" />
-                </a>
-              </div>
-            </div>
-            <div class="w-full md:w-1/2 p-1">
-              <div class="overflow-hidden h-full w-full">
-                <a href="./dist/assets/images/horizontal/outros/h13.jpg"
-                  data-fancybox="gallery">
-                  <img alt="a view of the ocean from the top of a hill"
-                    class="block h-full w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
-                    src="./dist/assets/images/horizontal/outros/h13.jpg" />
-                </a>
-              </div>
-            </div>
-            <div class="w-full md:w-1/2 p-1">
-              <div class="overflow-hidden h-full w-full">
-                <a href="./dist/assets/images/horizontal/outros/h9.jpg"
-                  data-fancybox="gallery">
-                  <img alt="a pheasant flying in the sky with its wings spread"
-                    class="block h-full w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
-                    src="./dist/assets/images/horizontal/outros/h9.jpg" />
-                </a>
-              </div>
-            </div>
-          </div>
+<body>
 
-          <div class="flex w-full md:w-1/2 flex-wrap">
-            <div class="w-full p-1">
-              <div class="overflow-hidden h-full w-full">
-                <a href="./dist/assets/images/vertical/futebol/v7.jpg"
-                  data-fancybox="gallery">
-                  <img alt="a statue of a man next to a statue of a woman"
-                    class="block h-full w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
-                    src="./dist/assets/images/vertical/futebol/v7.jpg" />
-                </a>
-              </div>
+  <header>
+    <body class="dark:bg-black bg-white h-screen text-black dark:text-white px-5 md:px-20 opacity-0 animate-fade-in transition duration-500">
+    
+      <!-- Navbar -->
+      <header class="flex w-full overflow-hidden pt-10 pb-1">
+        <nav id="nav" x-data="{ open: false }" role="navigation" class="w-full">
+          <div class="container mx-auto flex flex-wrap items-center md:flex-no-wrap">
+            <div class="mr-4 md:mr-8">
+              <a href="../index.html" class="text-2xl font-signika font-bold">JOÃO GUILHERME</a>
             </div>
-            <div class="w-full md:w-1/2 p-1">
-              <div class="overflow-hidden h-full w-full">
-                <a href="./dist/assets/images/horizontal/futebol/h3.jpg"
-                  data-fancybox="gallery">
-                  <img alt="a city street with tall buildings in the background"
-                    class="block h-full w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
-                    src="./dist/assets/images/horizontal/futebol/h3.jpg" />
-                </a>
-              </div>
+            <div class="ml-auto md:hidden flex items-center justify-start">
+              <button onclick="menuToggle()" @click="open = !open"
+                class="tap-highlight-transparent text-black dark:text-white w-5 h-5 relative focus:outline-none"
+                @click="open = !open">
+                <span class="sr-only">Open main menu</span>
+                <div class="block w-5 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <span aria-hidden="true"
+                    class="block absolute h-0.5 w-5 bg-current transform transition duration-500 ease-in-out"
+                    :class="{'rotate-45': open,' -translate-y-1.5': !open }"></span>
+                  <span aria-hidden="true"
+                    class="block absolute  h-0.5 w-5 bg-current   transform transition duration-500 ease-in-out"
+                    :class="{'opacity-0': open } "></span>
+                  <span aria-hidden="true"
+                    class="block absolute  h-0.5 w-5 bg-current transform  transition duration-500 ease-in-out"
+                    :class="{'-rotate-45': open, ' translate-y-1.5': !open}"></span>
+                </div>
+              </button>
             </div>
-            <div class="w-full md:w-1/2 p-1">
-              <div class="overflow-hidden h-full w-full">
-                <a href="./dist/assets/images/horizontal/futebol/h4.jpg"
-                  data-fancybox="gallery">
-                  <img alt="25 de abril bridge spanning over Tagus river"
-                    class="block h-full w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
-                    src="./dist/assets/images/horizontal/futebol/h4.jpg" />
-                </a>
-              </div>
-            </div>
-            <div class="w-full md:w-1/2 p-1">
-              <div class="overflow-hidden h-full w-full">
-                <a href="./dist/assets/images/horizontal/futebol/h5.jpg"
-                  data-fancybox="gallery">
-                  <img alt="a lot of lanterns floating in the air at night"
-                    class="block h-full w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
-                    src="./dist/assets/images/horizontal/futebol/h5.jpg" />
-                </a>
-              </div>
-            </div>
-            <div class="w-full md:w-1/2 p-1">
-              <div class="overflow-hidden h-full w-full">
-                <a href="./dist/assets/images/horizontal/outros/h13.jpg"
-                  data-fancybox="gallery">
-                  <img alt="a flock of seaguls flying over a body of water"
-                    class="block h-full w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
-                    src="./dist/assets/images/horizontal/outros/h13.jpg" />
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="flex w-full md:w-1/2 flex-wrap">
-            <div class="w-full md:w-1/2 p-1">
-              <div class="overflow-hidden h-full w-full">
-                <a href="./dist/assets/images/vertical/futebol/v6.jpg"
-                  data-fancybox="gallery">
-                  <img alt="a statue of a headless angel"
-                    class="block h-full w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
-                    src="./dist/assets/images/vertical/futebol/v6.jpg" />
-                </a>
-              </div>
-            </div>
-            <div class="w-full md:w-1/2 p-1">
-              <div class="overflow-hidden h-full w-full">
-                <a href="./dist/assets/images/horizontal/futebol/IMG_0375.jpg"
-                  data-fancybox="gallery">
-                  <img alt="Monument to the Discoveries viewed from top to bottom"
-                    class="block h-full w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
-                    src="./dist/assets/images/horizontal/futebol/IMG_0375.jpg" />
-                </a>
-              </div>
-            </div>
-            <div class="w-full p-1">
-              <div class="overflow-hidden h-full w-full">
-                <a href="./dist/assets/images/horizontal/futebol/IMG_9720.jpg"
-                  data-fancybox="gallery">
-                  <img
-                    alt="a group of people walking along the museum of art, architecture and technology of lisbon next to the Tagus river"
-                    class="block h-full w-full object-cover object-center opacity-0 animate-fade-in transition duration-500 transform scale-100 hover:scale-110"
-                    src="./dist/assets/images/horizontal/futebol/IMG_9720.jpg" />
-                </a>
-              </div>
+            <div id="menu"
+              class="w-full h-0 transition-all ease-out duration-500 md:transition-none md:w-auto md:flex-grow md:flex md:items-center">
+              <ul id="ulMenu"
+                class="flex flex-col duration-300 ease-out md:space-x-5 sm:transition-none mt-5 md:flex-row md:items-center md:ml-auto md:mt-0 md:pt-0 md:border-0">
+                <li class="group transition duration-300">
+                  <a href="../index.html" class="font-signika text-2xl">PORTFOLIO
+                    <span
+                      class="hidden md:block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black dark:bg-white">
+                    </span>
+                  </a>
+                </li>
+                <li class="group transition duration-300">
+                  <a href="comprar.html" class="font-signika text-2xl">COMPRAR
+                    <span class="hidden md:block h-0.5 bg-black dark:bg-white"></span>
+                  </a>
+                </li>
+                <li class="group transition duration-300">
+                  <a href="contact.html" class="font-signika text-2xl">CONTATO
+                    <span
+                      class="hidden md:block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black dark:bg-white">
+                    </span>
+                  </a>
+                </li>
+                <li class="group transition duration-300">
+                  <a href="/dist/carrinho.html" class="font-signika text-2xl tap-highlight-transparent">CARRINHO
+                    <span
+                      class="hidden md:block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black dark:bg-white"></span>
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
+        </nav>
+  </header>
+  <div>
+    <!-- Heading -->
+    <header class="text-center mb-8">
+      <h1 class="text-3xl font-bold text-gray-800">Fotos Disponíveis</h1>
+      <p class="text-gray-600 mt-2">Explore e encontre sua melhor jogada.</p>
+    </header>
+    
+    <!-- Linha 01 -->
+    <div class="flex flex-wrap justify-center space-x-6 mt-6 mb-6">
+
+      <!-- Image Card 1 Responsiva -->
+      <div class="w-full sm:w-full md:w-1/2 lg:w-1/5 shadow-md rounded-lg overflow-hidden">
+        <a href="album/carrinho+ensaio.html" class="photo-card"> <!-- Link para a página do álbum -->
+          <img src="https://res.cloudinary.com/dg9rsflsy/image/upload/v1234567890/IMG_1405_copiar_uqlg9s" alt="Foto 1">
+        </a>
+        <div class="p-4">
+          <h2 class="text-lg font-bold">
+            Ensaio Profissional - Laila Jayne
+          </h2>
+          <p class="text-gray-600 font-bold mt-2 text-4xl py-3">R$12,00</p>
+          <!-- Os botões agora só aparecem dentro da página do álbum -->
         </div>
       </div>
-    </section>
+      <!-- Image Card 1 Responsiva -->
+      <div class="w-full sm:w-full md:w-1/2 lg:w-1/5 shadow-md rounded-lg overflow-hidden">
+        <a href="album/carrinho.html" class="photo-card"> <!-- Link para a página do álbum -->
+          <img src="https://res.cloudinary.com/dg9rsflsy/image/upload/v1234567890/IMG_2136_jdkmbs" alt="Foto 1">
+        </a>
+        <div class="p-4">
+          <h2 class="text-lg font-bold">
+            1º Open Vôlei
+          </h2>
+          <p class="text-gray-600 font-bold mt-2 text-4xl py-3">R$12,00 und</p>
+          <!-- Os botões agora só aparecem dentro da página do álbum -->
+        </div>
+      </div>
+  
+      <!-- Image Card 9 Responsiva -->
+      
+    </div>
+  </div>
+  
+  
+  <!-- Pagination -->
+  <div class="flex flex-wrap justify-center space-x-1 space-y-2">
+    <!-- Botão anterior -->
+    <a href="#" class="flex items-center px-4 py-2 mx-1 text-gray-500 bg-white rounded-md dark:bg-gray-800 dark:text-gray-600 cursor-not-allowed">
+        previous
+    </a>
+  
+    <!-- Página 1 -->
+    <a href="comprar.html" class="flex items-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white">
+        1
+    </a>
+  
+    <!-- Página 2 -->
+    <a href="page2.html" class="flex items-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white">
+        2
+    </a>
+  
+    <!-- Página 3 -->
+    <a href="page3.html" class="flex items-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white">
+        3
+    </a>
+  
+    <!-- Botão próxima -->
+    <a href="page4.html" class="flex items-center px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white">
+        Próxima
+    </a>
+  </div>  
+
   </div>
   <!-- Footer -->
   <footer>
@@ -359,6 +278,14 @@
   <script src="dist/fade_in.js"></script>
   <script src="dist/menu.js"></script>
   <script src="server.js"></script>
+  <script>
+    function comprarFoto(nomeFoto) {
+        const numeroWhatsapp = "5564993123204"; // Substitua pelo seu número do WhatsApp
+        const mensagem = `Olá! Gostaria de comprar a ${nomeFoto}.`;
+        const url = `https://wa.me/${5564993123204}?text=${encodeURIComponent(mensagem)}`;
+        window.open(url, '_blank'); // Abre o link em uma nova aba
+    }
+</script>
 </body>
 
 </html>
