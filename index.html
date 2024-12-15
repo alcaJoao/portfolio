@@ -59,27 +59,31 @@
       plugins: [],
     }
   </script>
-  
-  <script>
-    const imageUrls = [
-      "https://res.cloudinary.com/dg9rsflsy/image/upload/v1234567890/imagem1.jpg",
-      "https://res.cloudinary.com/dg9rsflsy/image/upload/v1234567890/imagem2.jpg",
-      "https://res.cloudinary.com/dg9rsflsy/image/upload/v1234567890/imagem3.jpg",
-      // Adicione as URLs das suas imagens...
-    ];
 
-    const gallery = document.getElementById('gallery');
-    imageUrls.forEach(url => {
-      const img = document.createElement('img');
-      img.setAttribute('loading', 'lazy'); // Lazy loading
-      img.src = url;
-      img.alt = 'Imagem Cloudinary';
-      img.style.width = '200px';
-      img.style.margin = '5px';
-      gallery.appendChild(img);
-    });
-  </script>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
   
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyDeYMgnmnE892-OHt195fcfUW2KT07Yjvo",
+      authDomain: "fotografias-8da4e.firebaseapp.com",
+      projectId: "fotografias-8da4e",
+      storageBucket: "fotografias-8da4e.firebasestorage.app",
+      messagingSenderId: "831721842538",
+      appId: "1:831721842538:web:9bdb1c1a1c219fa889a713",
+      measurementId: "G-8V551BB9ND"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+
 </head>
 
 <body>
@@ -117,7 +121,7 @@
               <ul id="ulMenu"
                 class="flex flex-col duration-300 ease-out md:space-x-5 sm:transition-none mt-5 md:flex-row md:items-center md:ml-auto md:mt-0 md:pt-0 md:border-0">
                 <li class="group transition duration-300">
-                  <a href="../index.html" class="font-signika text-2xl">PORTFOLIO
+                  <a href="/portfolio.html" class="font-signika text-2xl">PORTFOLIO
                     <span
                       class="hidden md:block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black dark:bg-white">
                     </span>
@@ -136,7 +140,7 @@
                   </a>
                 </li>
                 <li class="group transition duration-300">
-                  <a href="/dist/carrinho.html" class="font-signika text-2xl tap-highlight-transparent">CARRINHO
+                  <a href="./album/carrinho+ensaio.html" class="font-signika text-2xl tap-highlight-transparent">CARRINHO
                     <span
                       class="hidden md:block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-black dark:bg-white"></span>
                   </a>
@@ -159,7 +163,9 @@
       <!-- Image Card 1 Responsiva -->
       <div class="w-full sm:w-full md:w-1/2 lg:w-1/5 shadow-md rounded-lg overflow-hidden">
         <a href="album/carrinho+ensaio.html" class="photo-card"> <!-- Link para a página do álbum -->
-          <img src="https://res.cloudinary.com/dg9rsflsy/image/upload/v1234567890/IMG_1405_copiar_uqlg9s" alt="Foto 1">
+          <img src="https://res.cloudinary.com/dg9rsflsy/image/upload/v1234567890/IMG_1405_copiar_uqlg9s" alt="Foto 1"
+            alt="Foto 1" 
+            onclick="ensaioProfissionalRequestPassword(event)">
         </a>
         <div class="p-4">
           <h2 class="text-lg font-bold">
@@ -169,9 +175,9 @@
           <!-- Os botões agora só aparecem dentro da página do álbum -->
         </div>
       </div>
-      <!-- Image Card 1 Responsiva -->
+      <!-- Image Card 2 Responsiva -->
       <div class="w-full sm:w-full md:w-1/2 lg:w-1/5 shadow-md rounded-lg overflow-hidden">
-        <a href="album/carrinho.html" class="photo-card"> <!-- Link para a página do álbum -->
+        <a href="album/carrinho+esportes.html" class="photo-card"> <!-- Link para a página do álbum -->
           <img src="https://res.cloudinary.com/dg9rsflsy/image/upload/v1234567890/IMG_2136_jdkmbs" alt="Foto 1">
         </a>
         <div class="p-4">
@@ -182,13 +188,55 @@
           <!-- Os botões agora só aparecem dentro da página do álbum -->
         </div>
       </div>
-  
-      <!-- Image Card 9 Responsiva -->
-      
+      <!-- Image Card 3 Responsiva -->
+      <div class="w-full sm:w-full md:w-1/2 lg:w-1/1 shadow-md rounded-lg overflow-hidden">
+        <a href="" class="photo-card"> <!-- Link para a página do álbum -->
+          <img src="https://res.cloudinary.com/dg9rsflsy/image/upload/v1234567890/IMG_6754_1_yc3if3" alt="Foto 1"
+            alt="Foto 1" 
+            onclick="confraRequestPassword(event)"> <!-- Evento de clique no <img> -->
+        </a>
+        <div class="p-4">
+          <h2 class="text-lg font-bold">
+            Confraternização Drogaria Bom Jardim 
+          </h2>
+          <!-- Os botões agora só aparecem dentro da página do álbum -->
+        </div>
     </div>
   </div>
+
   
-  
+  <script>
+    function confraRequestPassword(event) {
+      event.preventDefault(); // Impede ações padrão
+      const password = prompt("Digite a senha para acessar:");
+      const correctPassword = "confra2024"; // Substitua pela senha desejada
+    
+      if (password === correctPassword) {
+        alert("Acesso concedido!");
+        window.location.href = "album/confraternizacao.html"; // Redireciona para a página protegida
+      } else {
+        alert("Senha incorreta!");
+      }
+    }
+
+    function ensaioProfissionalRequestPassword(event) {
+      event.preventDefault(); // Impede ações padrão
+      const password = prompt("Digite a senha para acessar:");
+      const correctPassword = "laila123"; // Substitua pela senha desejada
+    
+      if (password === correctPassword) {
+        alert("Acesso concedido!");
+        window.location.href = "album/carrinho+ensaio.html"; // Redireciona para a página protegida
+      } else {
+        alert("Senha incorreta!");
+      }
+    }
+    </script>
+
+    
+
+
+
   <!-- Pagination -->
   <div class="flex flex-wrap justify-center space-x-1 space-y-2">
     <!-- Botão anterior -->

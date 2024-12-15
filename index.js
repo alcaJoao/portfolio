@@ -11,3 +11,4 @@ cloudinary.config({
 
 // Testa a configuração com um log
 console.log('Cloudinary configurado:', cloudinary.config());
+

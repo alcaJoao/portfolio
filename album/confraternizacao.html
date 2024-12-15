@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria de Fotos - Confraternização Drogaria Bom Jardim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        /* Estilos adicionais do TailwindCSS, se necessário */
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+
+    <div class="container mx-auto px-4 py-10">
+        <h1 class="text-4xl font-semibold text-center mb-8">Galeria de Fotos - Confraternização Drogaria Bom Jardim</h1>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="gallery">
+            <!-- As imagens serão inseridas aqui via JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        // Função para buscar as imagens da pasta no Cloudinary
+        async function fetchImages() {
+            const cloudName = 'dg9rsflsy';  // Seu cloud_name
+            const apiKey = '273744773742296'; // Sua api_key (não expor no frontend em produção)
+            const apiSecret = 'cpYU10La74nue4lXF0WCQcQUmN0'; // Sua api_secret (não expor no frontend em produção)
+            const folderPath = 'Confraternização Drogaria Bom Jardim'; // Pasta no Cloudinary
+
+            const apiUrl = `https://api.cloudinary.com/v1_1/${cloudName}/resources/image?prefix=${folderPath}&max_results=500`;
+
+            try {
+                const response = await axios.get(apiUrl, {
+                    headers: {
+                        'Authorization': `Basic ${btoa(apiKey + ":" + apiSecret)}` // Autenticação básica
+                    }
+                });
+
+                const images = response.data.resources;
+                const gallery = document.getElementById('gallery');
+                gallery.innerHTML = ''; // Limpa a galeria antes de adicionar as novas imagens
+
+                // Adiciona as imagens à galeria
+                images.forEach(image => {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = image.secure_url; // URL segura da imagem
+                    imgElement.alt = image.public_id;
+                    imgElement.classList.add('w-full', 'h-auto', 'rounded-lg', 'shadow-md');
+
+                    // Cria um div para cada imagem
+                    const imageContainer = document.createElement('div');
+                    imageContainer.classList.add('overflow-hidden', 'rounded-lg');
+                    imageContainer.appendChild(imgElement);
+
+                    // Adiciona o div com a imagem à galeria
+                    gallery.appendChild(imageContainer);
+                });
+
+            } catch (error) {
+                console.error('Erro ao buscar imagens:', error);
+            }
+        }
+
+        // Chama a função para carregar as imagens ao carregar a página
+        fetchImages();
+    </script>
+
+</body>
+
+</html>

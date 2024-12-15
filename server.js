@@ -7,7 +7,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Rota para servir o arquivo 'about_me.html'
 app.get('/about', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'about_me.html'));
+  res.sendFile(path.join(__dirname, 'album', 'carrinho+ensaio.html'));
 });
 
 // Rota principal para a página inicial

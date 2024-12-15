@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Álbum Dinâmico do Cloudinary</title>
+</head>
+<body class="bg-gray-100 p-10">
+  <div class="max-w-5xl mx-auto bg-white p-6 rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold mb-6">Álbum de Fotos do Cloudinary</h1>
+
+    <!-- Álbum Dinâmico -->
+    <div id="album" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-4"></div>
+  </div>
+
+  <script>
+
+    const cloudinaryName = "dg9rsflsy"; // Substitua pelo seu nome no Cloudinary
+    const folderName = "Ensaio Profissional"; // Substitua pelo nome do diretório no Cloudinary
+
+    async function fetchCloudinaryImages() {
+      const albumContainer = document.getElementById("album");
+
+      try {
+        // Chamada para obter a lista de imagens
+        const response = await fetch(`https://res.cloudinary.com/${cloudinaryName}/image/list/${folderName}.json`);
+        const data = await response.json();
+
+        if (!data.resources || data.resources.length === 0) {
+          albumContainer.innerHTML = "<p class='text-gray-600'>Nenhuma imagem encontrada no Cloudinary.</p>";
+          return;
+        }
+
+        // Criar os cartões de fotos
+        data.resources.forEach((image) => {
+          const photoCard = document.createElement("div");
+          photoCard.classList.add("photo-card", "bg-white", "p-4", "rounded-lg", "shadow-md", "cursor-pointer");
+          photoCard.innerHTML = `
+            <img src="https://res.cloudinary.com/${cloudinaryName}/image/upload/${image.public_id}" alt="${image.public_id}" class="w-full h-56 object-cover rounded-lg mb-4">
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Imagem</h3>
+            <p class="text-gray-600 text-lg">ID: ${image.public_id}</p>
+          `;
+          albumContainer.appendChild(photoCard);
+        });
+      } catch (error) {
+        console.error("Erro ao buscar imagens do Cloudinary:", error);
+        albumContainer.innerHTML = "<p class='text-red-500'>Erro ao carregar as imagens.</p>";
+      }
+    }
+
+    // Chamar a função ao carregar a página
+    fetchCloudinaryImages();
+  </script>
+</body>
+</html>
